@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom"; // 🧭 added for nested routes
 import { PodcastProvider } from "./context/PodcastContext";
 import { fetchPodcasts } from "./api/fetchPodcasts";
 import { genres } from "./data";
 import Header from "./components/Header";
-import SearchBar from "./components/SearchBar";
-import SortSelect from "./components/SortSelect";
-import GenreFilter from "./components/GenreFilter";
-import PodcastGrid from "./components/PodcastGrid";
-import Pagination from "./components/Pagination";
 import styles from "./App.module.css";
 
 /**
- * Root component of the Podcast Explorer app.
- * Handles data fetching and layout composition.
+ * Root layout component of the Podcast Explorer app.
+ * Provides global context and structure for all pages.
  */
 export default function App() {
   const [podcasts, setPodcasts] = useState([]);
@@ -29,12 +25,7 @@ export default function App() {
 
       <PodcastProvider initialPodcasts={podcasts}>
         <main className={styles.main}>
-          <section className={styles.controls}>
-            <SearchBar />
-            <GenreFilter genres={genres} />
-            <SortSelect />
-          </section>
-
+          {/* Show loading or error globally */}
           {loading && (
             <div className={styles.messageContainer}>
               <div className={styles.spinner}></div>
@@ -50,12 +41,8 @@ export default function App() {
             </div>
           )}
 
-          {!loading && !error && (
-            <>
-              <PodcastGrid genres={genres} />
-              <Pagination />
-            </>
-          )}
+          {/* Render the active page (HomePage or ShowDetailPage) */}
+          {!loading && !error && <Outlet />}
         </main>
       </PodcastProvider>
     </>
