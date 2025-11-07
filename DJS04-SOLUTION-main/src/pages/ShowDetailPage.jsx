@@ -1,7 +1,8 @@
 // src/pages/ShowDetailPage.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import fetchPodcasts from "../api/fetchPodcasts.js";
+import { fetchPodcasts } from "../api/fetchPodcasts.js";
+
 
 export default function ShowDetailPage() {
   const { id } = useParams(); // dynamic part of the URL (/show/:id)
