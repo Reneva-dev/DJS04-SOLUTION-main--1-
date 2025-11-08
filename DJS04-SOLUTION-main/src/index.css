@@ -105,4 +105,15 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Season heading styling */
+.season-heading {
+  cursor: pointer;
+  color: #9b59b6; /* lavender purple */
+  background-color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin: 0 0 1rem 0;
+}
+
+
 
