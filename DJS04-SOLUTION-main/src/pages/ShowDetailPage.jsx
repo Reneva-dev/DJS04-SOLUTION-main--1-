@@ -71,83 +71,87 @@ export default function ShowDetailPage() {
 
       {/* Seasons List */}
       {show.seasons && show.seasons.length > 0 ? (
-        show.seasons.map((season) => (
-          <div
-            key={season.season}
-            style={{
-              marginBottom: "1rem",
-              border: "1px solid #ddd",
-              padding: "1rem",
-              borderRadius: "8px",
-              backgroundColor: "white",
-            }}
-          >
-            <h3
-              onClick={() =>
-                setExpandedSeason(expandedSeason === season.season ? null : season.season)
-              }
+        show.seasons.map((season) => {
+          const episodeCount = season.episodes ? season.episodes.length : 0;
+          return (
+            <div
+              key={`season-${season.season}`}
               style={{
-                cursor: "pointer",
-                color: "var(--lavender-purple)",
-                padding: "0.5rem",
-                borderRadius: "4px",
-                margin: 0,
+                marginBottom: "1rem",
+                border: "1px solid #ddd",
+                padding: "1rem",
+                borderRadius: "8px",
+                backgroundColor: "white",
               }}
             >
-              {season.title} ({season.episodes.length} episodes)
-            </h3>
+              <h3
+                onClick={() =>
+                  setExpandedSeason(expandedSeason === season.season ? null : season.season)
+                }
+                style={{
+                  cursor: "pointer",
+                  color: "var(--lavender-purple)",
+                  padding: "0.5rem",
+                  borderRadius: "4px",
+                  margin: 0,
+                }}
+              >
+                {season.title} ({episodeCount} episodes)
+              </h3>
 
-            {expandedSeason === season.season && (
-              <div className="episodes" style={{ marginTop: "1rem" }}>
-                {season.episodes && season.episodes.length > 0 ? (
-                  season.episodes.map((episode) => (
-                    <div
-                      key={episode.episode}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginBottom: "0.5rem",
-                        gap: "10px",
-                      }}
-                    >
-                      <img
-                        src={season.image}
-                        alt={`Season ${season.title}`}
+              {expandedSeason === season.season && (
+                <div className="episodes" style={{ marginTop: "1rem" }}>
+                  {season.episodes && season.episodes.length > 0 ? (
+                    season.episodes.map((episode) => (
+                      <div
+                        key={`episode-${episode.episode}`}
                         style={{
-                          width: "60px",
-                          height: "60px",
-                          objectFit: "cover",
-                          borderRadius: "6px",
+                          display: "flex",
+                          alignItems: "center",
+                          marginBottom: "0.5rem",
+                          gap: "10px",
                         }}
-                      />
-                      <div>
-                        <h4>
-                          Episode {episode.episode}: {episode.title}
-                        </h4>
-                        <p>
-                          {episode.description
-                            ? episode.description.length > 100
-                              ? episode.description.slice(0, 100) + "..."
-                              : episode.description
-                            : "No description available."}
-                        </p>
+                      >
+                        <img
+                          src={season.image}
+                          alt={`Season ${season.title}`}
+                          style={{
+                            width: "60px",
+                            height: "60px",
+                            objectFit: "cover",
+                            borderRadius: "6px",
+                          }}
+                        />
+                        <div>
+                          <h4>
+                            Episode {episode.episode}: {episode.title}
+                          </h4>
+                          <p>
+                            {episode.description
+                              ? episode.description.length > 100
+                                ? episode.description.slice(0, 100) + "..."
+                                : episode.description
+                              : "No description available."}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))
-                ) : (
-                  <p style={{ fontStyle: "italic", color: "#666" }}>
-                    No episodes available for this season.
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-        ))
+                    ))
+                  ) : (
+                    <p style={{ fontStyle: "italic", color: "#666" }}>
+                      No episodes available for this season.
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })
       ) : (
         <p>No seasons available.</p>
       )}
     </div>
   );
 }
+
 
 
