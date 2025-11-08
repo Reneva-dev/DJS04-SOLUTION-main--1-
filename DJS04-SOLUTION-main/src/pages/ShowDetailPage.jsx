@@ -1,36 +1,26 @@
+// src/pages/ShowDetailPage.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 /**
- * ShowDetailPage Component
- * 
- * Fetches and displays details for a specific podcast show
- * based on the route parameter (id). Handles loading, error,
- * and empty states for a smooth user experience.
+ * ShowDetailPage
+ * Displays detailed info for a specific podcast show.
+ * Handles loading and error states, and formats data for readability.
  */
 export default function ShowDetailPage() {
-  const { id } = useParams(); // Get the dynamic show ID from the route
+  const { id } = useParams(); // Get show ID from URL
   const [show, setShow] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchShowDetails() {
-      setLoading(true);
-      setError(null);
-
       try {
         const res = await fetch(`https://podcast-api.netlify.app/id/${id}`);
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        if (!res.ok) throw new Error("Failed to fetch show details");
         const data = await res.json();
-
-        if (!data || Object.keys(data).length === 0) {
-          throw new Error("Show not found.");
-        }
-
         setShow(data);
       } catch (err) {
-        console.error("Error fetching show details:", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -40,54 +30,63 @@ export default function ShowDetailPage() {
     fetchShowDetails();
   }, [id]);
 
-  // 🌀 Loading State
-  if (loading) {
-    return (
-      <div className="show-detail loading">
-        <p>Loading show details...</p>
-      </div>
-    );
-  }
+  if (loading) return <p>Loading show details...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!show) return <p>No show details found.</p>;
 
-  // ⚠️ Error State
-  if (error) {
-    return (
-      <div className="show-detail error">
-        <p>Something went wrong: {error}</p>
-        <Link to="/">← Back to Home</Link>
-      </div>
-    );
-  }
+  // Format last updated date
+  const updatedDate = new Date(show.updated).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
-  // 🚫 Empty State
-  if (!show) {
-    return (
-      <div className="show-detail empty">
-        <p>No show details available.</p>
-        <Link to="/">← Back to Home</Link>
-      </div>
-    );
-  }
-
-  // ✅ Success State
   return (
-    <div className="show-detail">
-      <Link to="/">← Back to Home</Link>
-      <h1>{show.title}</h1>
-      <img src={show.image} alt={show.title} width="300" />
-      <p>{show.description}</p>
+    <div className="show-detail" style={{ padding: "2rem" }}>
+      <Link to="/" style={{ textDecoration: "none", color: "#007bff" }}>
+        ← Back to Home
+      </Link>
 
-      {show.genres && (
-        <p>
-          <strong>Genres:</strong> {show.genres.join(", ")}
-        </p>
-      )}
+      <h1 style={{ marginTop: "1rem" }}>{show.title}</h1>
 
-      {show.seasons && (
-        <p>
-          <strong>Seasons:</strong> {show.seasons.length}
-        </p>
-      )}
+      <img
+        src={show.image}
+        alt={show.title}
+        style={{
+          width: "300px",
+          borderRadius: "10px",
+          margin: "1rem 0",
+        }}
+      />
+
+      <p style={{ maxWidth: "600px", lineHeight: "1.6" }}>{show.description}</p>
+
+      <div style={{ marginTop: "1rem" }}>
+        <strong>Genres: </strong>
+        {show.genres && show.genres.length > 0 ? (
+          show.genres.map((genre) => (
+            <span
+              key={genre}
+              style={{
+                background: "#f0f0f0",
+                padding: "0.3rem 0.6rem",
+                borderRadius: "5px",
+                marginRight: "0.5rem",
+                fontSize: "0.9rem",
+              }}
+            >
+              {genre}
+            </span>
+          ))
+        ) : (
+          <span>No genres listed</span>
+        )}
+      </div>
+
+      <p style={{ marginTop: "1rem" }}>
+        <strong>Last Updated:</strong> {updatedDate}
+      </p>
     </div>
   );
 }
+
