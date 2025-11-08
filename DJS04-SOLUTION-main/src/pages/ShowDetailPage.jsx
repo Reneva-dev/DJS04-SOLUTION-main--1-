@@ -22,6 +22,7 @@ export default function ShowDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedSeason, setExpandedSeason] = useState(null);
+  const [expandedEpisode, setExpandedEpisode] = useState(null); // NEW state for expanded episode
 
   useEffect(() => {
     async function fetchShowDetails() {
@@ -45,18 +46,20 @@ export default function ShowDetailPage() {
   if (!show) return <p>No show found.</p>;
 
   return (
-    <div className="show-detail">
+    <div className="show-detail" style={{ textAlign: "center" }}>
       <Link to="/">← Back to Home</Link>
-      <h1>{show.title}</h1>
+      <h1 style={{ color: "#b19cd9" }}>{show.title}</h1>
       <img
         src={show.image}
         alt={show.title}
-        style={{ width: "300px", borderRadius: "10px" }}
+        style={{ width: "300px", borderRadius: "10px", margin: "1rem 0" }}
       />
       <p>{show.description}</p>
-      <p><strong>Last updated:</strong> {new Date(show.updated).toLocaleDateString()}</p>
+      <p>
+        <strong>Last updated:</strong> {new Date(show.updated).toLocaleDateString()}
+      </p>
 
-      <h2>Seasons</h2>
+      <h2 style={{ color: "#b19cd9" }}>Seasons</h2>
       {show.seasons && show.seasons.length > 0 ? (
         show.seasons.map((season) => (
           <div
@@ -66,17 +69,21 @@ export default function ShowDetailPage() {
               border: "1px solid #ddd",
               padding: "1rem",
               borderRadius: "8px",
+              backgroundColor: "white",
+              maxWidth: "600px",
+              marginLeft: "auto",
+              marginRight: "auto",
+              textAlign: "left",
             }}
           >
             <h3
               onClick={() =>
-                setExpandedSeason(
-                  expandedSeason === season.id ? null : season.id
-                )
+                setExpandedSeason(expandedSeason === season.id ? null : season.id)
               }
               style={{
                 cursor: "pointer",
-                color: "#0077cc",
+                color: "#b19cd9",
+                marginBottom: "0.5rem",
               }}
             >
               {season.title} ({season.episodes.length} episodes)
@@ -89,10 +96,16 @@ export default function ShowDetailPage() {
                     key={episode.id}
                     style={{
                       display: "flex",
-                      alignItems: "center",
+                      alignItems: "flex-start",
                       marginBottom: "0.5rem",
                       gap: "10px",
+                      cursor: "pointer",
+                      borderBottom: "1px solid #eee",
+                      paddingBottom: "0.5rem",
                     }}
+                    onClick={() =>
+                      setExpandedEpisode(expandedEpisode === episode.id ? null : episode.id)
+                    }
                   >
                     <img
                       src={season.image}
@@ -102,17 +115,24 @@ export default function ShowDetailPage() {
                         height: "60px",
                         objectFit: "cover",
                         borderRadius: "6px",
+                        flexShrink: 0,
                       }}
                     />
-                    <div>
-                      <h4>
+                    <div style={{ flex: 1 }}>
+                      <h4 style={{ margin: 0 }}>
                         Episode {index + 1}: {episode.title}
                       </h4>
-                      <p>
-                        {episode.description.length > 100
-                          ? episode.description.slice(0, 100) + "..."
-                          : episode.description}
-                      </p>
+                      {expandedEpisode === episode.id ? (
+                        <p>{episode.description || "No description available."}</p>
+                      ) : (
+                        <p style={{ margin: 0, color: "#555" }}>
+                          {episode.description
+                            ? episode.description.length > 100
+                              ? episode.description.slice(0, 100) + "..."
+                              : episode.description
+                            : "No description available."}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -126,4 +146,5 @@ export default function ShowDetailPage() {
     </div>
   );
 }
+
 
