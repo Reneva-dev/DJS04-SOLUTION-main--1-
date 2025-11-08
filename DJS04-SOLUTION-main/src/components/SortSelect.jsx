@@ -10,6 +10,8 @@ export default function SortSelect() {
 
   return (
     <select
+      id="sort-select"
+      name="sort"
       className={styles.select}
       value={sortKey}
       onChange={(e) => setSortKey(e.target.value)}
@@ -22,3 +24,4 @@ export default function SortSelect() {
     </select>
   );
 }
+
