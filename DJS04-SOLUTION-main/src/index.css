@@ -1,142 +1,82 @@
-/* ==========================
-   GLOBAL LAYOUT
-========================== */
-.container {
+:root {
+  --primary: #7c3aed;
+  --primary-light: #a78bfa;
+  --bg-light: #f8f8fa;
+  --card-bg: #ffffff;
+  --text-dark: #1f1f1f;
+  --text-muted: #6b7280;
+  --shadow: rgba(0, 0, 0, 0.08);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* Page container */
+main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* Headings */
-h1,
-h2,
-h3 {
-  color: #222;
-  margin-bottom: 1rem;
-}
-
-/* ==========================
-   HOMEPAGE STYLING
-========================== */
-.homepage {
-  text-align: center;
-}
-
-.homepage h1 {
-  font-size: 2.2rem;
-  margin-bottom: 1.5rem;
-}
-
-.search-bar {
-  width: 100%;
-  max-width: 400px;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
+/* Buttons (e.g., genres, filters, etc.) */
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
   border-radius: 8px;
-  margin-bottom: 1.5rem;
-}
-
-.genre-filter {
-  margin-bottom: 2rem;
-}
-
-.genre-filter select {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* Grid layout for podcasts */
-.podcast-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-
-.podcast-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 0.6rem 1.2rem;
   cursor: pointer;
-}
-
-.podcast-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.podcast-card img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.podcast-card h3 {
-  margin-top: 0.8rem;
-  font-size: 1.1rem;
-  color: #222;
-}
-
-.podcast-card p {
-  color: var(--grey-text);
-  font-size: 0.9rem;
-}
-
-/* ==========================
-   SHOW DETAILS PAGE
-========================== */
-.show-detail {
-  max-width: 800px;
-  margin: 2rem auto;
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.show-detail img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 1.5rem;
-}
-
-.show-detail h1 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.show-detail p {
-  color: var(--grey-text);
-  line-height: 1.6;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.genre-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
-}
-
-.genre-tag {
-  background: #e6e6e6;
-  border-radius: 8px;
-  padding: 0.3rem 0.7rem;
-  font-size: 0.85rem;
-  color: #333;
-}
-
-.back-link {
-  display: inline-block;
-  color: #0077ff;
-  text-decoration: none;
-  margin-bottom: 1rem;
   font-weight: 500;
+  transition: background 0.2s ease-in-out;
 }
 
-.back-link:hover {
+button:hover {
+  background: var(--primary-light);
+}
+
+/* Card styling (podcast previews, etc.) */
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--shadow);
+  padding: 1rem;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+/* Muted text */
+p, span {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* General layout tweaks */
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
   text-decoration: underline;
 }
