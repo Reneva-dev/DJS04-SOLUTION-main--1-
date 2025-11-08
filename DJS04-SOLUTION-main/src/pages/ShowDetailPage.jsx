@@ -71,16 +71,16 @@ export default function ShowDetailPage() {
             }}
           >
             <h3
-              onClick={() =>
-                setExpandedSeason(expandedSeason === season.id ? null : season.id)
-              }
-              style={{
-                cursor: "pointer",
-                color: "#0077cc",
-              }}
-            >
-              {season.title} ({season.episodes.length} episodes)
-            </h3>
+  onClick={() =>
+    setExpandedSeason(
+      expandedSeason === season.id ? null : season.id
+    )
+  }
+  className="season-heading"
+>
+  {season.title} ({season.episodes.length} episodes)
+</h3>
+
 
             {expandedSeason === season.id && (
               <div className="episodes">
