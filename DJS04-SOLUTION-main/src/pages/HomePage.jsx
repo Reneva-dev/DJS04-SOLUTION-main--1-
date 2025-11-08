@@ -7,6 +7,17 @@ import GenreFilter from "../components/GenreFilter.jsx";
 import SortSelect from "../components/SortSelect.jsx";
 import PodcastGrid from "../components/PodcastGrid.jsx";
 
+/**
+ * HomePage Component
+ *
+ * Displays the main list of podcasts, including search, filter, and sorting controls.
+ * Uses data from the global PodcastContext to manage the list of available and
+ * filtered podcasts.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered homepage with podcast grid and controls
+ */
+
 export default function HomePage() {
   const { podcasts, filteredPodcasts } = useContext(PodcastContext);
 
