@@ -18,6 +18,8 @@ export default function SearchBar() {
   return (
     <input
       type="search"
+      id="search-podcasts"
+      name="search"
       placeholder="Search podcasts…"
       value={value}
       onChange={(e) => setValue(e.target.value)}
@@ -25,3 +27,4 @@ export default function SearchBar() {
     />
   );
 }
+
