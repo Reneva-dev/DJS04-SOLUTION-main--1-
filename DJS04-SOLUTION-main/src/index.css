@@ -19,6 +19,12 @@ body {
 
 /* Header */
 header {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* keep it above other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 2rem 0;
   background: linear-gradient(90deg, #b57bf2, #d9c2f0);
@@ -27,7 +33,10 @@ header {
   font-weight: 700;
   letter-spacing: 1px;
   box-shadow: 0 2px 8px rgba(59, 7, 100, 0.2);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
+
 
 /* Main container */
 main {
