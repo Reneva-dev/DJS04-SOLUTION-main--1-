@@ -2,6 +2,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
+/**
+ * ShowDetailPage Component
+ *
+ * Displays detailed information about a specific podcast show, including
+ * its image, title, description, last updated date, and a collapsible list
+ * of seasons and episodes.
+ *
+ * Fetches show data dynamically from the external API using the show ID
+ * provided via route parameters.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered show detail page
+ */
+
 export default function ShowDetailPage() {
   const { id } = useParams();
   const [show, setShow] = useState(null);
