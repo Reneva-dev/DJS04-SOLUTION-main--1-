@@ -1,13 +1,15 @@
 :root {
-  --primary: #7c3aed;
-  --primary-light: #a78bfa;
-  --bg-light: #f8f8fa;
-  --card-bg: #ffffff;
-  --text-dark: #1f1f1f;
-  --text-muted: #6b7280;
-  --shadow: rgba(0, 0, 0, 0.08);
+  --primary: #9b5de5; /* lavender purple */
+  --primary-light: #c8a2f2; /* soft lilac */
+  --primary-bg: #f5f0ff; /* pale lavender background */
+  --bg-light: #f9f9fb;
+  --card-bg: #f2e6ff; /* light lilac for cards */
+  --text-dark: #2e1065; /* deep purple for headings */
+  --text-muted: #5b556b;
+  --shadow: rgba(155, 93, 229, 0.15);
 }
 
+/* General layout */
 body {
   font-family: "Inter", sans-serif;
   background-color: var(--bg-light);
@@ -16,14 +18,26 @@ body {
   padding: 0;
 }
 
-/* Page container */
+/* Header */
+header {
+  text-align: center;
+  padding: 2rem 0;
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 6px rgba(155, 93, 229, 0.2);
+}
+
+/* Main container */
 main {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 2rem;
 }
 
-/* Buttons (e.g., genres, filters, etc.) */
+/* Buttons (e.g., genre filters) */
 button {
   background: var(--primary);
   color: white;
@@ -32,14 +46,15 @@ button {
   padding: 0.6rem 1.2rem;
   cursor: pointer;
   font-weight: 500;
-  transition: background 0.2s ease-in-out;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 button:hover {
   background: var(--primary-light);
+  transform: translateY(-2px);
 }
 
-/* Card styling (podcast previews, etc.) */
+/* Podcast cards */
 .card {
   background: var(--card-bg);
   border-radius: 12px;
@@ -65,13 +80,14 @@ p, span {
   line-height: 1.6;
 }
 
-/* General layout tweaks */
+/* Images */
 img {
   max-width: 100%;
   border-radius: 8px;
   object-fit: cover;
 }
 
+/* Links */
 a {
   color: var(--primary);
   text-decoration: none;
@@ -80,3 +96,4 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
