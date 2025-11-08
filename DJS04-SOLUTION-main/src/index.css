@@ -1,33 +1,32 @@
 :root {
-  --primary: #9b5de5; /* lavender purple */
-  --primary-light: #c8a2f2; /* soft lilac */
-  --primary-bg: #f5f0ff; /* pale lavender background */
-  --bg-light: #f9f9fb;
-  --card-bg: #f2e6ff; /* light lilac for cards */
-  --text-dark: #2e1065; /* deep purple for headings */
+  --lavender: #d9c2f0; /* soft lavender background */
+  --lilac: #e8d4ff; /* card lilac */
+  --purple-accent: #a270f0; /* accent purple (buttons, links) */
+  --deep-purple: #3b0764; /* headings */
   --text-muted: #5b556b;
+  --white: #ffffff;
   --shadow: rgba(155, 93, 229, 0.15);
 }
 
-/* General layout */
+/* Body background */
 body {
   font-family: "Inter", sans-serif;
-  background-color: var(--bg-light);
-  color: var(--text-dark);
   margin: 0;
-  padding: 0;
+  background: var(--lavender); /* Soft lavender page background */
+  color: var(--deep-purple);
+  transition: background 0.3s ease-in-out;
 }
 
 /* Header */
 header {
   text-align: center;
   padding: 2rem 0;
-  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  background: linear-gradient(90deg, #b57bf2, #d9c2f0);
   color: white;
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: 1px;
-  box-shadow: 0 2px 6px rgba(155, 93, 229, 0.2);
+  box-shadow: 0 2px 8px rgba(59, 7, 100, 0.2);
 }
 
 /* Main container */
@@ -39,8 +38,8 @@ main {
 
 /* Buttons (e.g., genre filters) */
 button {
-  background: var(--primary);
-  color: white;
+  background: var(--purple-accent);
+  color: var(--white);
   border: none;
   border-radius: 8px;
   padding: 0.6rem 1.2rem;
@@ -50,13 +49,13 @@ button {
 }
 
 button:hover {
-  background: var(--primary-light);
+  background: #b98af8;
   transform: translateY(-2px);
 }
 
 /* Podcast cards */
 .card {
-  background: var(--card-bg);
+  background: var(--lilac); /* lilac card background */
   border-radius: 12px;
   box-shadow: 0 2px 8px var(--shadow);
   padding: 1rem;
@@ -70,7 +69,7 @@ button:hover {
 
 /* Headings */
 h1, h2, h3 {
-  color: var(--text-dark);
+  color: var(--deep-purple);
   font-weight: 600;
 }
 
@@ -89,11 +88,12 @@ img {
 
 /* Links */
 a {
-  color: var(--primary);
+  color: var(--purple-accent);
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
 }
+
 
