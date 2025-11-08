@@ -15,7 +15,6 @@ import { useParams, Link } from "react-router-dom";
  * @component
  * @returns {JSX.Element} The rendered show detail page
  */
-
 export default function ShowDetailPage() {
   const { id } = useParams();
   const [show, setShow] = useState(null);
@@ -45,20 +44,21 @@ export default function ShowDetailPage() {
   if (!show) return <p>No show found.</p>;
 
   return (
-    <div className="show-detail" style={{ textAlign: "center" }}>
+    <div className="show-detail" style={{ textAlign: "center", padding: "1rem" }}>
       <Link to="/">← Back to Home</Link>
       <h1 style={{ color: "black" }}>{show.title}</h1>
       <img
         src={show.image}
         alt={show.title}
-        style={{ width: "300px", borderRadius: "10px", margin: "1rem 0" }}
+        style={{ width: "300px", borderRadius: "10px", marginBottom: "1rem" }}
       />
       <p>{show.description}</p>
       <p>
         <strong>Last updated:</strong> {new Date(show.updated).toLocaleDateString()}
       </p>
 
-      <h2 style={{ color: "black" }}>Seasons</h2>
+      <h2 style={{ color: "purple" }}>Seasons</h2>
+
       {show.seasons && show.seasons.length > 0 ? (
         show.seasons.map((season) => (
           <div
@@ -68,22 +68,25 @@ export default function ShowDetailPage() {
               border: "1px solid #ddd",
               padding: "1rem",
               borderRadius: "8px",
+              backgroundColor: "white",
             }}
           >
             <h3
-  onClick={() =>
-    setExpandedSeason(
-      expandedSeason === season.id ? null : season.id
-    )
-  }
-  className="season-heading"
->
-  {season.title} ({season.episodes.length} episodes)
-</h3>
-
+              onClick={() =>
+                setExpandedSeason(expandedSeason === season.id ? null : season.id)
+              }
+              style={{
+                cursor: "pointer",
+                color: "purple",
+                margin: 0,
+                userSelect: "none",
+              }}
+            >
+              {season.title} ({season.episodes.length} episodes)
+            </h3>
 
             {expandedSeason === season.id && (
-              <div className="episodes">
+              <div className="episodes" style={{ marginTop: "0.5rem", textAlign: "left" }}>
                 {season.episodes.map((episode, index) => (
                   <div
                     key={episode.id}
@@ -105,10 +108,10 @@ export default function ShowDetailPage() {
                       }}
                     />
                     <div>
-                      <h4>
+                      <h4 style={{ color: "purple", margin: "0 0 0.25rem 0" }}>
                         Episode {index + 1}: {episode.title}
                       </h4>
-                      <p>
+                      <p style={{ margin: 0 }}>
                         {episode.description.length > 100
                           ? episode.description.slice(0, 100) + "..."
                           : episode.description}
@@ -121,7 +124,7 @@ export default function ShowDetailPage() {
           </div>
         ))
       ) : (
-        <p>No seasons available.</p>
+        <p style={{ fontStyle: "italic", color: "#666" }}>No seasons available.</p>
       )}
     </div>
   );
