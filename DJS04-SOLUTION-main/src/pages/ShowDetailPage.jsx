@@ -15,6 +15,7 @@ import { useParams, Link } from "react-router-dom";
  * @component
  * @returns {JSX.Element} The rendered show detail page
  */
+
 export default function ShowDetailPage() {
   const { id } = useParams();
   const [show, setShow] = useState(null);
@@ -44,60 +45,64 @@ export default function ShowDetailPage() {
   if (!show) return <p>No show found.</p>;
 
   return (
-    <div className="show-detail" style={{ textAlign: "center", padding: "1rem" }}>
-      <Link to="/" style={{ display: "inline-block", marginBottom: "1rem" }}>
-        ← Back to Home
-      </Link>
+    <div className="show-detail">
+      <Link to="/">← Back to Home</Link>
 
-      <h1 style={{ color: "black" }}>{show.title}</h1>
+      {/* Podcast Title */}
+      <h1 style={{ color: "var(--black)", marginBottom: "1rem" }}>{show.title}</h1>
 
+      {/* Podcast Image */}
       <img
         src={show.image}
         alt={show.title}
         style={{ width: "300px", borderRadius: "10px", marginBottom: "1rem" }}
       />
 
+      {/* Description */}
       <p>{show.description}</p>
 
+      {/* Last Updated */}
       <p>
-        <strong>Last updated:</strong>{" "}
-        {new Date(show.updated).toLocaleDateString()}
+        <strong>Last updated:</strong> {new Date(show.updated).toLocaleDateString()}
       </p>
 
-      <h2 style={{ color: "purple", marginTop: "2rem" }}>Seasons</h2>
+      {/* Seasons Heading */}
+      <h2 style={{ color: "var(--lavender-purple)", marginTop: "2rem" }}>Seasons</h2>
 
+      {/* Seasons List */}
       {show.seasons && show.seasons.length > 0 ? (
         show.seasons.map((season) => (
           <div
-            key={season.id}
+            key={season.season}
             style={{
               marginBottom: "1rem",
               border: "1px solid #ddd",
               padding: "1rem",
               borderRadius: "8px",
               backgroundColor: "white",
-              textAlign: "left",
             }}
           >
             <h3
               onClick={() =>
-                setExpandedSeason(expandedSeason === season.id ? null : season.id)
+                setExpandedSeason(expandedSeason === season.season ? null : season.season)
               }
               style={{
                 cursor: "pointer",
-                color: "purple",
-                marginBottom: "0.5rem",
+                color: "var(--lavender-purple)",
+                padding: "0.5rem",
+                borderRadius: "4px",
+                margin: 0,
               }}
             >
-              {season.title} ({season.episodes?.length || 0} episodes)
+              {season.title} ({season.episodes.length} episodes)
             </h3>
 
-            {expandedSeason === season.id && (
-              <div className="episodes" style={{ marginTop: "0.5rem" }}>
+            {expandedSeason === season.season && (
+              <div className="episodes" style={{ marginTop: "1rem" }}>
                 {season.episodes && season.episodes.length > 0 ? (
-                  season.episodes.map((episode, index) => (
+                  season.episodes.map((episode) => (
                     <div
-                      key={episode.id}
+                      key={episode.episode}
                       style={{
                         display: "flex",
                         alignItems: "center",
@@ -116,18 +121,15 @@ export default function ShowDetailPage() {
                         }}
                       />
                       <div>
-                        <h4
-                          style={{
-                            color: "purple",
-                            margin: "0 0 0.25rem 0",
-                          }}
-                        >
-                          Episode {index + 1}: {episode.title}
+                        <h4>
+                          Episode {episode.episode}: {episode.title}
                         </h4>
-                        <p style={{ margin: 0 }}>
-                          {episode.description.length > 100
-                            ? episode.description.slice(0, 100) + "..."
-                            : episode.description}
+                        <p>
+                          {episode.description
+                            ? episode.description.length > 100
+                              ? episode.description.slice(0, 100) + "..."
+                              : episode.description
+                            : "No description available."}
                         </p>
                       </div>
                     </div>
